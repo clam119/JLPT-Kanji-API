@@ -1,0 +1,26 @@
+{
+  "name": "jlpt-kanji-api",
+  "version": "1.0.0",
+  "description": "A REST API that provides Japanese Kanji based on their JLPT (Japanese Language Proficiency Test) level.",
+  "main": "app.js",
+  "scripts": {
+    "setup-dbs": "psql -U postgres -f ./db/setup.sql",
+    "seed": "node ./db/seeds/run-seed.js",
+    "test": "jest __tests__/app.test.js",
+    "start": "node listen.js"
+  },
+  "author": "Christopher Lam",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.1",
+    "pg": "^8.8.0",
+    "pg-format": "^1.0.4"
+  },
+  "devDependencies": {
+    "jest": "^29.1.2",
+    "jest-sorted": "^1.0.14",
+    "nodemon": "^2.0.20",
+    "supertest": "^6.3.0"
+  }
+}
