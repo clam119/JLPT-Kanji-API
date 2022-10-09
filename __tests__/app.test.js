@@ -12,8 +12,19 @@ describe('app', () => {
         return request(app)
         .get('/api/unknown-path')
         .expect(404)
-        .then(({ body }) => {
-            expect({ msg }).toBe('path not found');
-        })
     });
+
+    describe('GET /api', () => {
+        it('Status: 200 - Sends back all of the Kanji in the database.', () => {
+            return request(app)
+            .get('/api')
+            .expect(200)
+            .then((kanjiData) => {
+                const lengthOfKanjiData = kanjiData.length
+                expect(kanjiData.length).toBe(lengthOfKanjiData)
+            }
+            )
+        })
+    })
+
 })
