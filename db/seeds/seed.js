@@ -1,5 +1,6 @@
 const db = require("../connections");
 const format = require("pg-format");
+const devData = require('../data/development-data/all_kanji');
 
 const seed = (data) => {
   return db
@@ -18,18 +19,12 @@ const seed = (data) => {
     )
 
     .then(() => {
-      const formattedKanjiData = devData.map((kanji) => Object.values(kanji));
-      formattedKanjiData.forEach((kanji) => {
-        const singleQuery = format(
-          `INSERT INTO kanji (kanji, jlpt, meanings, reading_on, reading_kun) VALUES (%L);`,
-          kanji
-        );
-        return db
-          .query(singleQuery)
-          .then(() => console.log(`Finished inserting ${kanji.kanji}.`));
-      });
+      const formattedKanjiData = data.map((kanji) => Object.values(kanji));
+      const queryString = format(`INSERT INTO kanji (kanji, jlpt, meanings, reading_on, reading_kun) VALUES %L;`, formattedKanjiData);
+      return db.query(queryString)
+      .then(() => console.log(`Successfully inserted ${formattedKanjiData.length} rows into the table`));
     });
+
 };
 
-seed();
 module.exports = seed;
