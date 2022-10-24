@@ -23,6 +23,10 @@ app.use((err, req, res, next) => {
     }
 })
 
+app.all('/*', (req, res, next) => { 
+    res.status(404).send({msg: 'path not found'});
+})
+
 app.use((err, req, res, next) => {
     if(err.code='22PO2') {
         console.log(err)
