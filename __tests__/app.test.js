@@ -27,11 +27,10 @@ describe('app', () => {
         })
     })
 
-    describe('GET /api/:kanji_id', () => {
+    describe('GET /api/id/:kanji_id', () => {
         it('Status: 200 - Sends back the Kanji requested by the user if passed in valid ID', async () => {
-            const response = await request(app).get('/api/1').expect(200)
+            const response = await request(app).get('/api/id/1').expect(200)
             const { _body: requestedKanji } = await response;
-            console.log(requestedKanji)
             expect(Object.keys(requestedKanji)).toHaveLength(6)
             expect(requestedKanji).toMatchObject({
                 kanji_id: 1,
@@ -42,9 +41,8 @@ describe('app', () => {
         })
 
         it('Status: 200 - Sends back the Kanji requested by the user if passed in valid ID', async () => {
-            const response = await request(app).get('/api/2').expect(200)
+            const response = await request(app).get('/api/id/2').expect(200)
             const { _body: requestedKanji } = await response;
-            console.log(requestedKanji)
             expect(Object.keys(requestedKanji)).toHaveLength(6)
             expect(requestedKanji).toMatchObject({
                 kanji_id: 2,
@@ -55,13 +53,13 @@ describe('app', () => {
         })
 
         it('Status: 400 - Should respond back with a bad request if passed in a non-number as an ID', async () => {
-            const response = await request(app).get('/api/notValidIDType').expect(400);
+            const response = await request(app).get('/api/id/notValidIDType').expect(400);
             const { text: msg } = await response;
             expect(msg).toBe('Invalid Data Type');
         })
 
         it('Status : 404 - Should respond back with an error 404 and a message saying that the Kanji with that ID cannot be found', async () => {
-            const response = await request(app).get('/api/3330000').expect(404)
+            const response = await request(app).get('/api/id/3330000').expect(404)
             const { text: msg } = await response;
             expect(msg).toBe('Kanji not found');
         })
@@ -70,7 +68,6 @@ describe('app', () => {
     describe('GET /api/jlpt/n5', () => {
         it('Status: 200 - Sends back an array of all of the JLPT N5 Kanji in the database', async () => {
             const response = await request(app).get('/api/jlpt/n5').expect(200)
-            console.log(response, '<< TEST')
             const { _body: n5_kanji } = await response;
             expect(n5_kanji).toHaveLength(5);
             n5_kanji.forEach((kanji) => {
