@@ -65,6 +65,52 @@ describe('app', () => {
         })
     })
 
+    describe('GET /api/char/:kanji', () => {
+        it('Status: 200 - Sends back an object of the requested kanji if passed in an existing Kanji character', async () => {
+            const encodedURI = encodeURIComponent("聞")
+            const response = await request(app).get(`/api/char/${encodedURI}`).expect(200)
+            const {_body: requestedKanji} = await response;
+            expect(requestedKanji).toMatchObject({
+                kanji_id: 1,
+                kanji: "聞",
+                jlpt: 5,
+                meanings: "Hear,Ask,Listen"
+            })
+        })
+        
+        it('Status: 200 - Sends back an object of the requested kanji if passed in an existing Kanji character', async () => {
+            const encodedURI = encodeURIComponent("語");
+            const response = await request(app).get(`/api/char/${encodedURI}`).expect(200)
+            const {_body: requestedKanji} = await response;
+            expect(requestedKanji).toMatchObject({
+                kanji_id: 2,
+                kanji: "語",
+                jlpt: 5,
+                meanings: "Word,Speech,Language"
+            })
+        })
+
+        it('Status: 400 - Sends back an error 400 if passed in an invalid data type of number', async() => {
+            const response = await request(app).get('/api/char/30000').expect(400);
+            const { text: msg } = await response;
+            expect(msg).toBe('Invalid Data Type')
+        })
+        it('Status: 404 - Sends back an error 404 if passed in a kanji that does not exist in the database', async () => {
+            const encodedURI = encodeURIComponent("恋愛関係");
+            const response = await request(app).get(`/api/char/${encodedURI}`).expect(404)
+            const { text: msg } = await response;
+            expect(msg).toBe('Kanji not found')
+        })
+
+        it('Status: 404 - Sends back an error 404 if passed in a kanji that does not exist in the database', async () => {
+            const encodedURI = encodeURIComponent("偏差値");
+            const response = await request(app).get(`/api/char/${encodedURI}`).expect(404)
+            const { text: msg } = await response;
+            expect(msg).toBe('Kanji not found')
+        })
+        
+    })
+
     describe('GET /api/jlpt/n5', () => {
         it('Status: 200 - Sends back an array of all of the JLPT N5 Kanji in the database', async () => {
             const response = await request(app).get('/api/jlpt/n5').expect(200)
