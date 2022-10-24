@@ -1,10 +1,12 @@
 const express = require('express');
 const app = express();
-const { getAllKanji, getN5Kanji, getN4Kanji, getN3Kanji, getN2Kanji, getN1Kanji } = require('./controllers/kanji.controller');
+const { getAllKanji, getN5Kanji, getN4Kanji, getN3Kanji, getN2Kanji, getN1Kanji, getKanjiByID, getKanjiByChar } = require('./controllers/kanji.controller');
 
 app.use(express.json());
 
 app.get('/api', getAllKanji);
+app.get('/api/:kanji_id', getKanjiByID)
+app.get('/api/:kanji_char', getKanjiByChar)
 
 app.get('/api/n5', getN5Kanji);
 app.get('/api/n4', getN4Kanji);
