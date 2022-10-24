@@ -1,4 +1,4 @@
-const { fetchAllKanji, getN5Kanji } = require('../models/kanji.model.js');
+const { fetchAllKanji, fetchN5Kanji } = require('../models/kanji.model.js');
 
 exports.getAllKanji = (req, res, next) => {
     fetchAllKanji()
