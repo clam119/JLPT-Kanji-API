@@ -5,7 +5,7 @@ exports.getAllKanji = (req, res, next) => {
     .then((kanjiData => {
         res.status(200).send(kanjiData);
     })
-    .catch(next)
+    
 )}
 
 exports.getN5Kanji = (req, res, next) => {
