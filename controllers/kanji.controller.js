@@ -1,13 +1,29 @@
-const { fetchAllKanji, fetchN5Kanji, fetchN4Kanji, fetchN3Kanji, fetchN2Kanji, fetchN1Kanji } = require('../models/kanji.model.js');
+const { fetchAllKanji, fetchKanjiByID, fetchKanjiByChar, fetchN5Kanji, fetchN4Kanji, fetchN3Kanji, fetchN2Kanji, fetchN1Kanji } = require('../models/kanji.model.js');
 
 exports.getAllKanji = (req, res, next) => {
     fetchAllKanji()
     .then((kanjiData => {
         res.status(200).send(kanjiData);
     })
-    
 )}
 
+exports.getKanjiByID = (req, res, next) => {
+    const { kanji_id } = req.params;
+    fetchKanjiByID(kanji_id)
+    .then((requestedKanji) => {
+        res.status(200).send(requestedKanji);
+    })
+    .catch(next)
+}
+
+exports.getKanjiByChar = (req, res, next) => {
+    const { kanji } = req.params;
+    fetchKanjiByChar(kanji)
+    .then((requestedKanji) => {
+        res.status(200).send([requestedKanji]);
+    })
+    .catch(next)
+}
 exports.getN5Kanji = (req, res, next) => {
     fetchN5Kanji()
     .then((n5KanjiData) => {
