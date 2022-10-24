@@ -11,4 +11,10 @@ exports.fetchAllKanji = () => {
     })
 }
 
+exports.fetchN5Kanji = async () => {
+    const response = await db.query(`SELECT * FROM kanji WHERE jlpt = $1`, [5])
+    const { rows: n5_kanji } = await response;
+    return n5_kanji;
+}
+
 
