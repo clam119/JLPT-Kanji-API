@@ -17,10 +17,10 @@ exports.getKanjiByID = (req, res, next) => {
 }
 
 exports.getKanjiByChar = (req, res, next) => {
-    const { kanji } = req.params;
-    fetchKanjiByChar(kanji)
+    const { kanji_char} = req.params;
+    fetchKanjiByChar(kanji_char)
     .then((requestedKanji) => {
-        res.status(200).send([requestedKanji]);
+        res.status(200).send(requestedKanji);
     })
     .catch(next)
 }
