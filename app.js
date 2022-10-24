@@ -5,8 +5,8 @@ const { getAllKanji, getN5Kanji, getN4Kanji, getN3Kanji, getN2Kanji, getN1Kanji,
 app.use(express.json());
 
 app.get('/api', getAllKanji);
-app.get('/api/:kanji_id', getKanjiByID)
-app.get('/api/:kanji_char', getKanjiByChar)
+app.get('/api/id/:kanji_id', getKanjiByID)
+app.get('/api/char/:kanji_char', getKanjiByChar)
 
 app.get('/api/jlpt/n5', getN5Kanji);
 app.get('/api/jlpt/n4', getN4Kanji);
