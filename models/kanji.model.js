@@ -11,6 +11,26 @@ exports.fetchAllKanji = () => {
     })
 }
 
+exports.fetchKanjiByID = async (id) => {
+    const checkDb = await db.query(`SELECT * FROM kanji`);
+    const { rows: database } = await checkDb;
+    let filterNums = /\d+/.test(id);
+
+    if(!filterNums) {
+        return Promise.reject({status: 400, msg: "Invalid Data Type"});
+      }
+    
+
+    if(id > database.length) {
+        return Promise.reject({status: 404, msg: 'Kanji not found'})
+    }
+
+    const response = db.query(`SELECT * FROM kanji WHERE kanji_id=$1`, [id]);
+    const { rows: [requestedKanji] } = await response;
+    return requestedKanji;
+
+}
+
 exports.fetchN5Kanji = async () => {
     const response = await db.query(`SELECT * FROM kanji WHERE jlpt = $1`, [5])
     const { rows: n5_kanji } = await response;
