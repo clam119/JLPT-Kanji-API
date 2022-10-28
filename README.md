@@ -27,15 +27,15 @@ Therefore, I wanted to create a project that makes use of newly acquired Express
 
 # Setup & Installation
 If you would like to install the project on your local machine then please clone the repository below:
-> ```https://github.com/clam119/Northcoders-News-API.git```
+> ```https://github.com/clam119/JLPT-Kanji-API.git```
 
 Once you have successfully cloned this repostitory, please proceed by ensuring that you're inside the directory and run the following command to install the dependencies that will be required to run this project:
 > ```npm install```
 
 Upon installing the required dependencies, please create the two required environment variable files in the root folder with the following commands:
-> ```echo "PGDATABASE = nc_news_test" >> .env.test```
+> ```echo "PGDATABASE = jlpt_kanji_test" >> .env.test```
 
-> ```echo "PGDATABASE = nc_news" >> .env.development```
+> ```echo "PGDATABASE = jlpt_kanji" >> .env.development```
 
 After successfully creating the required environment variables on the root folder. Please run the following commands to create both the test & development databases:
 > ```npm run setup-dbs```
